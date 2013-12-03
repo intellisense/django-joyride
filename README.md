@@ -3,11 +3,6 @@ django-joyride
 
 A django project which gives flexibility to configure Guided Tours on your site through admin panel.
 
-Full Documentation
-==================
-
-@@TODO@@
-
 
 Thanks To
 ==========
