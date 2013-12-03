@@ -1,0 +1,22 @@
+<script type="text/javascript">
+    {% if joyride.showJoyRideElement %}
+        $('{{ joyride.showJoyRideElement }}').live('{{ joyride.showJoyRideElementOn }}', function(){
+            {% if joyride.destroy %}
+                $('{{ joyride.destroy }}').joyride('destroy');
+                $('#{{ joyride.slug }}').joyride({{ joyride.properties|safe }});
+            {% endif %}
+            //Have to call it again, don't know why. The destroy has some problems.
+            $('#{{ joyride.slug }}').joyride({{ joyride.properties|safe }});
+            
+        });
+    {% else %}
+        $(window).load(function() {
+            {% if joyride.destroy %}
+                $('{{ joyride.destroy }}').joyride('destroy');
+                $('#{{ joyride.slug }}').joyride({{ joyride.properties|safe }});
+            {% endif %}
+            //Have to call it again, don't know why. The destroy has some problems.
+            $('#{{ joyride.slug }}').joyride({{ joyride.properties|safe }});
+        });
+    {% endif %}
+</script>

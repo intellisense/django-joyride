@@ -1,0 +1,17 @@
+{% comment %}To render multiple joyrides at once{% endcomment %}
+
+{% for joyride in joyrides %}
+    <ol id="{{ joyride.slug }}" style="display: none;">
+        {% with joyride.steps.all as steps %}
+            {% for step in steps %}
+                <li {% if step.attachId %}data-id="{{ step.attachId }}"{% else %}data-class="{{ step.attachClass }}"{% endif %} data-button="{{ step.button }}" {% if step.options %}data-options="{{ step.options }}"{% endif %} {% if step.cssClass %}class="{{ step.cssClass }}"{% endif %}>
+                    {% if step.header %}
+                        <h2>{{ step.header|safe }}</h2>
+                    {% endif %}
+                    <p>{{ step.content|safe }}</p>
+                </li>
+            {% endfor %}
+        {% endwith %}
+    </ol>
+    {% include "joyride/joyride_script.html" %}
+{% endfor %}

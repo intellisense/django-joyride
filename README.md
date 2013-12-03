@@ -1,4 +1,15 @@
 django-joyride
 ==============
 
-A django project which gives flexibility to configure Guided Tours for rgistered users on your site through admin panel.
+A django project which gives flexibility to configure Guided Tours on your site through admin panel.
+
+Full Documentation
+==================
+
+@@TODO@@
+
+
+Thanks To
+==========
+- [zurb-joyride](https://github.com/zurb/joyride) This package is built on top of it.
+- [django-markitup](https://bitbucket.org/carljm/django-markitup/) for some help in template tags.
