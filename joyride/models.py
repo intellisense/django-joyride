@@ -2,11 +2,17 @@ import json
 
 from django.db import models
 from django.utils import timezone
-from django.contrib.auth.models import User
 from django.utils.translation import ugettext_noop as _
 from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 from django.core import serializers
+
+try:
+    from django.contrib.auth import get_user_model
+except ImportError: # django < 1.5
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
 
 from positions.fields import PositionField
 
