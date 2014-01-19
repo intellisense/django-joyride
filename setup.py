@@ -1,7 +1,7 @@
 from setuptools import setup
 
-long_description = (open('README.md').read() +
-                    open('CHANGES.rst').read() +
+long_description = (open('README.md').read() + '\n\n' +
+                    open('CHANGES.rst').read() + '\n\n' +
                     open('TODO.rst').read())
 
 def _static_files(prefix):

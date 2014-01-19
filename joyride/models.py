@@ -19,16 +19,16 @@ class JoyRideManager(models.Manager):
             if exclude_viewed:
                 viewed_qs = viewed_qs.filter(viewed=True)
             viewed_qs_ids = viewed_qs.values_list('joyride__id', flat=True)
-            qs.exclude(id__in=viewed_qs_ids)
+            qs = qs.exclude(id__in=viewed_qs_ids)
         if url_path is not None:
-            qs = qs.filter(url_path__regex=r'%s' % url_path)
+            qs = qs.filter(url_path__regex=r'^%s$' % url_path)
         return qs
     
     def get_joyride(self, slug, url_path=None, for_user=None, viewed=False):
         qs = super(JoyRideManager, self).get_query_set()
         kw = {'slug__exact': slug}
         if url_path is not None:
-            kw.update({'url_path__regex': r'%s' % url_path})
+            kw.update({'url_path__regex': r'^%s$' % url_path})
         obj = qs.get(**kw)
         if for_user and for_user.is_authenticated():
             objv = obj.views.filter(user__id=for_user.id)

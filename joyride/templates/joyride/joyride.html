@@ -1,6 +1,6 @@
 {% comment %}To render single joyride{% endcomment %}
 
-<ol id="{{ joyride.slug }}">
+<ol id="{{ joyride.slug }}" style="display: none;" data-method="joyride">
     {% with joyride.steps.all as steps %}
         {% for step in steps %}
             <li {% if step.attachId %}data-id="{{ step.attachId }}"{% else %}data-class="{{ step.attachClass }}"{% endif %} data-button="{{ step.button }}" {% if step.options %}data-options="{{ step.options }}"{% endif %} {% if step.cssClass %}class="{{ step.cssClass }}"{% endif %}>

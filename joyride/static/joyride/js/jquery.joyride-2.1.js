@@ -7,7 +7,7 @@
 */
 
 /*jslint unparam: true, browser: true, indent: 2 */
-
+var joyride_parent_id;
 ;(function ($, window, undefined) {
   'use strict';
 
@@ -212,6 +212,7 @@
         }
         $blank.append($wrapper);
         $blank.first().attr('data-index', opts.index);
+        joyride_parent_id = $(opts.li).parent().attr('id');
         $('.joyride-content-wrapper', $blank).append(content);
 
         return $blank[0];
@@ -859,7 +860,7 @@
         }
         if (settings.$li) {
           settings.postStepCallback(settings.$li.index(), settings.$current_tip);
-          settings.postRideCallback(settings.$li.index(), settings.$current_tip);
+          settings.postRideCallback(settings.$li.index(), settings.$current_tip, joyride_parent_id);
         }
         $('.joyride-modal-bg').hide();
       },
