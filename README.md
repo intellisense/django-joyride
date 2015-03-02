@@ -24,7 +24,7 @@ Configuration
 Available settings:
 
 * ``JOYRIDE_JQUERY_URL``
-  * Set this to differnt version of jquery in your static folder, If you wish to use a different version of jQuery, or host it yourself
+  * Set this to different version of jquery in your static folder, If you wish to use a different version of jQuery, or host it yourself
     * e.g. ``JOYRIDE_JQUERY_URL = 'joyride/js/jquery.min.js'`` This will use the jQuery available at ``STATIC_URL/joyride/js/jquery.min.js``. A relative ``JOYRIDE_JQUERY_URL`` is relative to ``STATIC_URL``.
   * Set this to ``None`` if you have already included jQuery in your template so that ``joyride_media`` and ``joyride_js`` template tag should not include jQuery to avoid conflict.
     * e.g. ``JOYRIDE_JQUERY_URL = None``
@@ -36,16 +36,16 @@ Available settings:
   * Same settings as ``JOYRIDE_JQUERY_URL``, it decide whether to include or not to include the jquery modernizr.
 
 * ``JOYRIDE_LIB_URL``
-  * Set this to use latest version of ``zurb-joyride`` js library instead. This package already contains this library with some bug fixes. It is strongly suggested that you should not change this setting untill ``zurb-joyride`` apply some fixes which i have posted there, check status of [Issue 161](https://github.com/zurb/joyride/issues/161) and [Issue 167](https://github.com/zurb/joyride/issues/167)
+  * Set this to use latest version of ``zurb-joyride`` js library instead. This package already contains this library with some bug fixes. It is strongly suggested that you should not change this setting until ``zurb-joyride`` apply some fixes which I have posted there, check status of [Issue 161](https://github.com/zurb/joyride/issues/161) and [Issue 167](https://github.com/zurb/joyride/issues/167)
 
 
 Add joyride tours from admin
 ============================
 
-* The model and model fields are self explainatory. All model fields have help text for better understanding. Still if you want more documentation on it then check the comprehensive [documentation](http://zurb.com/playground/jquery-joyride-feature-tour-plugin) on ``zurb-joyride``
+* The model and model fields are self explanatory. All model fields have help text for better understanding. Still if you want more documentation on it then check the comprehensive [documentation](http://zurb.com/playground/jquery-joyride-feature-tour-plugin) on ``zurb-joyride``
 * Following model fields are extra and comes in handy:
   * ``url_path``
-    * The url e.g. ``/about/`` or url regex ``/abc/\d+/`` of the page for which you are creating the joyride tour. Later on you can use this as a paramter in template tags to filter joyrides based on ``request.path``
+    * The url e.g. ``/about/`` or url regex ``/abc/\d+/`` of the page for which you are creating the joyride tour. Later on you can use this as a parameter in template tags to filter joyrides based on ``request.path``
 
   * The **BOTTLENECK** of ``zurb-joyride``
     * ``showJoyRideElement`` and ``showJoyRideElementOn`` fields
@@ -57,7 +57,7 @@ Template Tags
 =============
 
 1. **Include The Media**
-  * Load the django-joyride tamplate tags ``{% load joyride_tags %}``
+  * Load the django-joyride template tags ``{% load joyride_tags %}``
   * Include the media (css and js files) ``{% joyride_media %}``
     * By default the ``joyride_media`` tag also includes ``jQuery``, ``jQuery Modernizer`` and ``jQuery Cookie`` based on the value of your ``JOYRIDE_JQUERY_URL``, ``JOYRIDE_JQUERY_MODERNIZR_URL`` and ``JOYRIDE_JQUERY_COOKIE_URL`` settings. To suppress the inclusion of these libraries (if you are already including it yourself), set these settings to ``None``.
 
@@ -71,8 +71,8 @@ Template Tags
       * e.g. ``{% get_joyrides url_path=request.path as joyrides %}``
       * If you have left ``url_path`` empty while configuring joyride in admin then in order to get those joyride whose ``url_path`` is empty you would do ``{% get_joyrides url_path="" as joyrides %}``
     * ``for_user`` filter joyrides by user if you are using ``JoyRideHistory`` model to keep track of joyrides with respect to user.
-      * e.g. ``{% get_joyrides for_user=request.user as joyrides %}`` # this will get all joyrides for user which are not viewed or cancled by user.
-    * ``exclude_viewed`` (default=True) if you want to include all joyrides for user irrespective of seen/canceld or not
+      * e.g. ``{% get_joyrides for_user=request.user as joyrides %}`` # this will get all joyrides for user which are not viewed or cancelled by user.
+    * ``exclude_viewed`` (default=True) if you want to include all joyrides for user irrespective of seen/cancelled or not
       * e.g. ``{% get_joyrides for_user=request.user exclude_viewed=False %}``
     * ``slug`` only used with ``get_joyride`` to get single joyride.
       * e.g. ``{% get_joyride "my-tour-slug" %}``
@@ -92,9 +92,9 @@ Template Tags
 JoyRideHistory Model
 ====================
 
-* This model is only used if you have registered users on your site and you want to keep track of joyrides which are already viewed by user so that those joyrides should never be shown to user again. It is upto you how you are going to make use of this table. Below is an example:
+* This model is only used if you have registered users on your site and you want to keep track of joyrides which are already viewed by user so that those joyrides should never be shown to user again. It is up to you how you are going to make use of this table. Below is an example:
 
-  Set ``postRideCallback=mark_viewed_joyride`` (A method to call once the tour closes (canceled or complete)) in admin.
+  Set ``postRideCallback=mark_viewed_joyride`` (A method to call once the tour closes (cancelled or complete)) in admin.
   Write the javascript callback ``mark_viewed_joyride`` some where in your template:
   
   ```

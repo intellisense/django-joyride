@@ -6,3 +6,4 @@ dist
 .svnexternals
 build
 .venv_*
+django_joyride.egg-info

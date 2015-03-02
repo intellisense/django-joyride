@@ -1,6 +1,6 @@
 from setuptools import setup
 
-long_description = (open('README.md').read() + '\n\n' +
+long_description = (open('README.rst').read() + '\n\n' +
                     open('CHANGES.rst').read() + '\n\n' +
                     open('TODO.rst').read())
 
@@ -12,7 +12,7 @@ def _static_files(prefix):
 
 setup(
     name='django-joyride',
-    version='0.1.0',
+    version='0.1.2',
     description='A Django application that eases the guided tour',
     author='Aamir Adnan',
     author_email='s33k.n.d3str0y@gmail.com',
