@@ -4,6 +4,7 @@ long_description = (open('README.rst').read() + '\n\n' +
                     open('CHANGES.rst').read() + '\n\n' +
                     open('TODO.rst').read())
 
+
 def _static_files(prefix):
     return [prefix+'/'+pattern for pattern in [
         'joyride/*.*',
@@ -37,5 +38,5 @@ setup(
         'Django>=1.4.3'
     ],
     package_data={'joyride': ['templates/joyride/*.html'] +
-                              _static_files('static')}
+                  _static_files('static')}
 )

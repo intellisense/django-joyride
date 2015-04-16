@@ -7,14 +7,9 @@ from django.template.defaultfilters import slugify
 from django.core.exceptions import ValidationError
 from django.core import serializers
 
-try:
-    from django.contrib.auth import get_user_model
-except ImportError: # django < 1.5
-    from django.contrib.auth.models import User
-else:
-    User = get_user_model()
-
 from positions.fields import PositionField
+
+from .settings import USER_MODEL
 
 
 class JoyRideManager(models.Manager):
@@ -241,24 +236,20 @@ class JoyRide(models.Model):
         j.pop('slug')
         j.pop('url_path')
         j.pop('created')
-        cookieDomain = j.pop('cookieDomain')
-        if not cookieDomain:
-            cookieDomain = False
-        cookiePath = j.pop('cookiePath')
-        if not cookiePath:
-            cookiePath = False
+        cookie_domain = j.pop('cookieDomain', False)
+        cookie_path = j.pop('cookiePath', False)
         
-        j.update({'cookieDomain': cookieDomain, 'cookiePath': cookiePath})
+        j.update({'cookieDomain': cookie_domain, 'cookiePath': cookie_path})
         d = {}
         for key, val in j.iteritems():
             if val != '':
                 d[key] = val
         return json.dumps(d)
     
-    def clean(self, *args, **kwargs):
+    def clean(self):
         if self.showJoyRideElement and not self.showJoyRideElementOn:
             raise ValidationError(_('showJoyRideElementOn field is required if showJoyRideElement is given'))
-        super(JoyRide, self).clean(*args, **kwargs)
+        super(JoyRide, self).clean()
         
     def save(self, *args, **kwargs):
         if not self.id:
@@ -273,7 +264,7 @@ class JoyRideSteps(models.Model):
     class Meta:
         verbose_name = _('Joy Ride Step')
         verbose_name_plural = _('Joy Ride Steps')
-        ordering = ['position',]
+        ordering = ['position', ]
     
     joyride = models.ForeignKey(JoyRide, related_name='steps')
     
@@ -329,10 +320,10 @@ class JoyRideSteps(models.Model):
     
     position = PositionField(collection='joyride', default=0)
     
-    def clean(self, *args, **kwargs):
+    def clean(self):
         if (self.attachId and self.attachClass) or (not self.attachId and not self.attachClass):
             raise ValidationError(_('Either provide data-id or data-class'))
-        super(JoyRideSteps, self).clean(*args, **kwargs)
+        super(JoyRideSteps, self).clean()
     
     def __unicode__(self):
         return self.header or self.content[:20]
@@ -341,10 +332,10 @@ class JoyRideSteps(models.Model):
 class JoyRideHistory(models.Model):
     class Meta:
         verbose_name = _('Joy Ride History')
-        ordering = ['created',]
+        ordering = ['created', ]
         unique_together = ('joyride', 'user')
     
     joyride = models.ForeignKey(JoyRide, related_name='views')
-    user = models.ForeignKey(User, related_name='joyrides')
+    user = models.ForeignKey(USER_MODEL, related_name='joyrides')
     viewed = models.BooleanField(default=True)
     created = models.DateTimeField(default=timezone.now)
