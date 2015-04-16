@@ -236,8 +236,12 @@ class JoyRide(models.Model):
         j.pop('slug')
         j.pop('url_path')
         j.pop('created')
-        cookie_domain = j.pop('cookieDomain', False)
-        cookie_path = j.pop('cookiePath', False)
+        cookie_domain = j.pop('cookieDomain')
+        if not cookie_domain:
+            cookie_domain = False
+        cookie_path = j.pop('cookiePath')
+        if not cookie_path:
+            cookie_path = False
         
         j.update({'cookieDomain': cookie_domain, 'cookiePath': cookie_path})
         d = {}
