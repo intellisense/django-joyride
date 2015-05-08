@@ -1,10 +1,10 @@
 import posixpath
-from django.conf import settings as django_settings
-from joyride import settings
+from django.conf import settings
+
 
 def absolute_url(path, prefix=None):
     if prefix is None:
-        prefix = django_settings.STATIC_URL
+        prefix = settings.STATIC_URL
     if path.startswith(u'http://') or path.startswith(u'https://') or path.startswith(u'/'):
         return path
     return posixpath.join(prefix, path)
