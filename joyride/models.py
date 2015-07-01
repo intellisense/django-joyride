@@ -14,7 +14,10 @@ from .settings import USER_MODEL
 
 class JoyRideManager(models.Manager):
     def get_joyrides(self, url_path=None, for_user=None, exclude_viewed=True):
-        qs = super(JoyRideManager, self).get_query_set()
+        try:
+            qs = super(JoyRideManager, self).get_query_set()
+        except AttributeError:
+            qs = super(JoyRideManager, self).get_queryset()
         if for_user and for_user.is_authenticated():
             viewed_qs = JoyRideHistory.objects.filter(user__id=for_user.id)
             if exclude_viewed:
@@ -26,7 +29,10 @@ class JoyRideManager(models.Manager):
         return qs
     
     def get_joyride(self, slug, url_path=None, for_user=None, viewed=False):
-        qs = super(JoyRideManager, self).get_query_set()
+        try:
+            qs = super(JoyRideManager, self).get_query_set()
+        except AttributeError:
+            qs = super(JoyRideManager, self).get_queryset()
         kw = {'slug__exact': slug}
         if url_path is not None:
             kw.update({'url_path__regex': r'^%s$' % url_path})
