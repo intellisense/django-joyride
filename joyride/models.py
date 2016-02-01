@@ -251,7 +251,7 @@ class JoyRide(models.Model):
         
         j.update({'cookieDomain': cookie_domain, 'cookiePath': cookie_path})
         d = {}
-        for key, val in j.iteritems():
+        for key, val in j.items():
             if val != '':
                 d[key] = val
         return json.dumps(d)
