@@ -266,7 +266,7 @@ class JoyRide(models.Model):
             self.slug = slugify(self.name)
         super(JoyRide, self).save(*args, **kwargs)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -329,13 +329,15 @@ class JoyRideSteps(models.Model):
     )
     
     position = PositionField(collection='joyride', default=0)
-    
+
+    '''    
     def clean(self):
         if (self.attachId and self.attachClass) or (not self.attachId and not self.attachClass):
             raise ValidationError(_('Either provide data-id or data-class'))
         super(JoyRideSteps, self).clean()
+    '''
     
-    def __unicode__(self):
+    def __str__(self):
         return self.header or self.content[:20]
 
 
@@ -349,3 +351,6 @@ class JoyRideHistory(models.Model):
     user = models.ForeignKey(USER_MODEL, related_name='joyrides')
     viewed = models.BooleanField(default=True)
     created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.joyride) + ' - ' + self.user.username
