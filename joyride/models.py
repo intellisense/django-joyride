@@ -18,7 +18,7 @@ class JoyRideManager(models.Manager):
             qs = super(JoyRideManager, self).get_query_set()
         except AttributeError:
             qs = super(JoyRideManager, self).get_queryset()
-        if for_user and for_user.is_authenticated():
+        if for_user and for_user.is_authenticated:
             viewed_qs = JoyRideHistory.objects.filter(user__id=for_user.id)
             if exclude_viewed:
                 viewed_qs = viewed_qs.filter(viewed=True)
