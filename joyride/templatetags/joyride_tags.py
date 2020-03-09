@@ -68,14 +68,14 @@ def include_joyride(context, joyride):
     return context
 
 
-@register.assignment_tag
+@register.simple_tag
 def get_joyrides(url_path=None, for_user=None, exclude_viewed=True):
     qs = JoyRide.objects.get_joyrides(
         url_path=url_path, for_user=for_user, exclude_viewed=exclude_viewed)
     return qs
     
     
-@register.assignment_tag
+@register.simple_tag
 def get_joyride(slug, url_path=None, for_user=None, viewed=False):
     return JoyRide.objects.get_joyride(
         slug, url_path=url_path, for_user=for_user, viewed=viewed)
