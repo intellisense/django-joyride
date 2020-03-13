@@ -276,7 +276,7 @@ class JoyRideSteps(models.Model):
         verbose_name_plural = _('Joy Ride Steps')
         ordering = ['position', ]
     
-    joyride = models.ForeignKey(JoyRide, related_name='steps')
+    joyride = models.ForeignKey(JoyRide, related_name='steps', on_delete=models.CASCADE)
     
     header = models.CharField(
         _('Step Header'),
@@ -347,8 +347,8 @@ class JoyRideHistory(models.Model):
         ordering = ['created', ]
         unique_together = ('joyride', 'user')
     
-    joyride = models.ForeignKey(JoyRide, related_name='views')
-    user = models.ForeignKey(USER_MODEL, related_name='joyrides')
+    joyride = models.ForeignKey(JoyRide, related_name='views', on_delete=models.CASCADE)
+    user = models.ForeignKey(USER_MODEL, related_name='joyrides', on_delete=models.CASCADE)
     viewed = models.BooleanField(default=True)
     created = models.DateTimeField(default=timezone.now)
 
