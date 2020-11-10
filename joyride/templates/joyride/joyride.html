@@ -3,7 +3,7 @@
 <ol id="{{ joyride.slug }}" style="display: none;" data-method="joyride">
     {% with joyride.steps.all as steps %}
         {% for step in steps %}
-            <li {% if step.attachId %}data-id="{{ step.attachId }}"{% else %}data-class="{{ step.attachClass }}"{% endif %} data-button="{{ step.button }}" {% if step.options %}data-options="{{ step.options }}"{% endif %} {% if step.cssClass %}class="{{ step.cssClass }}"{% endif %}>
+            <li {% if step.attachId %}data-id="{{ step.attachId }}"{% elif step.attachClass %}data-class="{{ step.attachClass }}"{% endif %} data-button="{{ step.button }}" {% if step.options %}data-options="{{ step.options }}"{% endif %} {% if step.cssClass %}class="{{ step.cssClass }}"{% endif %}>
                 {% if step.header %}
                     <h2>{{ step.header|safe }}</h2>
                 {% endif %}

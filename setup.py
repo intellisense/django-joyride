@@ -1,4 +1,4 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 long_description = (open('README.rst').read() + '\n\n' +
                     open('CHANGES.rst').read() + '\n\n' +
@@ -11,6 +11,7 @@ def _static_files(prefix):
         'joyride/*/*.*',
     ]]
 
+
 setup(
     name='django-joyride',
     version='0.1.2',
@@ -19,7 +20,7 @@ setup(
     author_email='s33k.n.d3str0y@gmail.com',
     url='https://github.com/intellisense/django-joyride',
     license='MIT',
-    packages=['joyride', 'joyride.templatetags'],
+    packages=find_packages(exclude=['example']),
     long_description=long_description,
     classifiers=[
         'Development Status :: 4 - Beta',

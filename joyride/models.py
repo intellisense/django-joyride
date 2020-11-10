@@ -18,7 +18,7 @@ class JoyRideManager(models.Manager):
             qs = super(JoyRideManager, self).get_query_set()
         except AttributeError:
             qs = super(JoyRideManager, self).get_queryset()
-        if for_user and for_user.is_authenticated():
+        if for_user and for_user.is_authenticated:
             viewed_qs = JoyRideHistory.objects.filter(user__id=for_user.id)
             if exclude_viewed:
                 viewed_qs = viewed_qs.filter(viewed=True)
@@ -266,7 +266,7 @@ class JoyRide(models.Model):
             self.slug = slugify(self.name)
         super(JoyRide, self).save(*args, **kwargs)
     
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
 
@@ -276,7 +276,7 @@ class JoyRideSteps(models.Model):
         verbose_name_plural = _('Joy Ride Steps')
         ordering = ['position', ]
     
-    joyride = models.ForeignKey(JoyRide, related_name='steps')
+    joyride = models.ForeignKey(JoyRide, related_name='steps', on_delete=models.CASCADE)
     
     header = models.CharField(
         _('Step Header'),
@@ -329,13 +329,15 @@ class JoyRideSteps(models.Model):
     )
     
     position = PositionField(collection='joyride', default=0)
-    
+
+    '''    
     def clean(self):
         if (self.attachId and self.attachClass) or (not self.attachId and not self.attachClass):
             raise ValidationError(_('Either provide data-id or data-class'))
         super(JoyRideSteps, self).clean()
+    '''
     
-    def __unicode__(self):
+    def __str__(self):
         return self.header or self.content[:20]
 
 
@@ -345,7 +347,10 @@ class JoyRideHistory(models.Model):
         ordering = ['created', ]
         unique_together = ('joyride', 'user')
     
-    joyride = models.ForeignKey(JoyRide, related_name='views')
-    user = models.ForeignKey(USER_MODEL, related_name='joyrides')
+    joyride = models.ForeignKey(JoyRide, related_name='views', on_delete=models.CASCADE)
+    user = models.ForeignKey(USER_MODEL, related_name='joyrides', on_delete=models.CASCADE)
     viewed = models.BooleanField(default=True)
     created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.joyride) + ' - ' + self.user.username
